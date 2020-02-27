@@ -17,7 +17,6 @@ except:
     sys.exit()
 
 # ---------------------- change this ------------
-# set these variables according to your preference
 
 home = '/media/data/temp/.nome/imagem/instagram'
 tmp_file = '/tmp/tmp_insta'
