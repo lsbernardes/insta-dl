@@ -19,9 +19,8 @@ except:
 # ---------------------- change this ------------
 # set these variables according to your preference
 
-home = '.../instagram'
-tmp_file = '/tmp/tmp_insta'
-
+HOME = '.../instagram'
+TMP = '/tmp/tmp_insta'
 # -----------------------------------------------
 
 args = ' '.join(sys.argv[1:])
@@ -35,9 +34,9 @@ COR2 = Back.YELLOW + Fore.BLACK
 COR3 = Back.RED + Fore.WHITE
 COR4 = Fore.WHITE + Style.BRIGHT
 
-# Verificar se há arquivos não baixados e os converte numa lista lista_tmp
-if os.path.exists(tmp_file):
-    with open(tmp_file, 'r') as f:
+# Check if there are files not downloaded and convert them into a list called "lista_tmp"
+if os.path.exists(TMP):
+    with open(TMP, 'r') as f:
         lista_tmp = f.read().split(',')
         lista_tmp = [ i for i in lista_tmp if i is not '' ]
         if len(lista_tmp) == 0:
@@ -46,7 +45,7 @@ if os.path.exists(tmp_file):
 def bool_check(val):
     return True if val == 'true' else False
 
-def baixar(onde=home, item=None):
+def baixar(onde=HOME, item=None):
     global num
     if item is not None:
         url = item
@@ -94,19 +93,19 @@ def baixar(onde=home, item=None):
         if problema:
             print('\tProblema com a url:', url)
         elif video:
-            link = main_dict['video_url'] #.partition('?')[0]
+            link = main_dict['video_url']
             ext = '.mp4'
             download(link, url)
         else:
             if 'edge_sidecar_to_children' in main_dict:
                 print('Baixando galeria...')
                 for item in main_dict['edge_sidecar_to_children']['edges']:
-                    link = item['node']['display_url'] #.partition('?')[0]
+                    link = item['node']['display_url'] 
                     ext = '.jpg'
                     download(link, url)
                 print('Galeria baixada!')
             else:
-                link = main_dict['display_url'] #.partition('?')[0]
+                link = main_dict['display_url'] 
                 ext = '.jpg'
                 download(link, url)
 
@@ -138,8 +137,8 @@ def circular(onde, problema=False):
                 print(COR4 + 'Baixando...')
                 break
 
-        # Criar backup da lista    
-        with open(tmp_file, 'w') as f:
+        # Create a list backup
+        with open(TMP, 'w') as f:
             for item in lista_url:
                 f.write(item + ',')
 
@@ -153,26 +152,26 @@ def circular(onde, problema=False):
 
     if len(lista_url) == 0:
         try:
-            os.remove(tmp_file)
+            os.remove(TMP)
         except:
             pass
 
     else:
-        # Atualizar backup da lista, caso ainda exista arquivo não baixado    
+        # Update backup list in case still exist not downloaded files
         print('Nem todos as urls foram baixadas')
-        with open(tmp_file, 'w') as f:
+        with open(TMP, 'w') as f:
             for item in lista_url:
                 f.write(item + ',')
 
-# ------------------------ script actually starts here ---------------
+# ------------------------ the script actually starts here ---------------
 
-# Verify if there are file to be downloaded
-if os.path.exists(tmp_file):
+# Check if there are files to be downloaded
+if os.path.exists(TMP):
     if len(lista_tmp) > 0:
         print('Problemas com a tentativa de download anterior')
-        circular(home, problema=True)
+        circular(HOME, problema=True)
 
-# Verify if there are parameters passed to the script
+# Check if there are parameters passed to the script
 if len(args) >= 1:
     if '1' in args and 'd' in args:
         url = pyperclip.paste()
@@ -184,4 +183,4 @@ if len(args) >= 1:
         circular(atual)
 else:
     threading.Thread(target=sair).start() 
-    circular(home)
+    circular(HOME)
