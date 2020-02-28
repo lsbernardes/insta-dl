@@ -44,7 +44,7 @@ Additionally, you can pass the parameter `d` to override the default variable an
     $ pwd
     /home/persona/Desktop
     
-    $ python path/to/insta-dl.py
+    $ python path/to/insta-dl.py d
      Pressione ENTER para interromper o loop
     
     https://www.instagram.com/p/B8tcuhIHS0I/
