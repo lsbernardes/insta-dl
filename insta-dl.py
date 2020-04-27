@@ -112,7 +112,7 @@ def baixar(onde=HOME, item=None):
     baixadas.append(url)
 
 def filtro(url):
-    if 'instagram.com' in url and url not in lista_url:
+    if 'instagram.com' in url and url not in lista_url and 'cdninstagram.com' not in url:
         lista_url.append(url)
         print(url)
         os.system(f'notify-send -u critical -t 900 "COPIADO PARA O CLIPBOARD" "Link copiado: {url}"')
