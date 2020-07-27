@@ -52,7 +52,6 @@ def baixar(onde=HOME, item=None):
 
     with requests.Session() as s:
         problema = False
-        lista_galeria = []
         r = s.get(url)
         if r.status_code == 404:
             problema = True
@@ -115,7 +114,7 @@ def filtro(url):
     if 'instagram.com' in url and url not in lista_url and 'cdninstagram.com' not in url:
         lista_url.append(url)
         print(url)
-        os.system(f'notify-send -u critical -t 900 "COPIADO PARA O CLIPBOARD" "Link copiado: {url}"')
+        os.system(f'notify-send -u critical -t 90 "COPIADO PARA O CLIPBOARD" "Link copiado: {url}"')
 
 def sair():
     print(COR1 + ' Pressione ENTER para interromper o loop ')
